@@ -1,7 +1,10 @@
 package edu.hanodng.csee.java.hw3;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+//import java.util.Iterator;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class MainHW3 {
 	ArrayList<String> directories = new ArrayList<String>();
@@ -18,10 +21,19 @@ public class MainHW3 {
 			filemanager.ScanFile(directories.get(i));
 		}
 		messagemanager = filemanager.getMessageManager();
-		ArrayList<String> chats = messagemanager.getArray("lines");
-		for(int i = 0; i < chats.size(); i++) {
-			System.out.println(chats.get(i));
-		}
+		HashMap<String, Integer> inputdata = messagemanager.returnMap();
+		//HashMap<String, Integer> outputdata = new HashMap<String, Integer>();
+		TreeMap<Integer, String> sorteddata = new TreeMap<Integer, String>();
+		for(String key:inputdata.keySet()) {
+			Integer value = inputdata.get(key);
+			sorteddata.put(value, key);
+		}/*
+		Iterator<Integer> valueIterator = sorteddata.keySet().iterator();
+		while(valueIterator.hasNext()) {
+			Integer value = valueIterator.next();
+			outputdata.put(sorteddata.get(value), value);
+		}*/
+		filemanager.TreeMapWriteFile(sorteddata, "chatcount.csv");
 	}
 	
 	private ArrayList<String> setDir() {

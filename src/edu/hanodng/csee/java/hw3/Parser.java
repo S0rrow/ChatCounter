@@ -79,7 +79,7 @@ public class Parser {
 		if(i>=10) return Integer.toString(i);
 		else return "0"+i;
 	}
-	/*
+	
 	private String getDateTime(String curDate, String time) {
 		String pattern1 = "\\[(.+)\\s([0-9]+):([0-9]+)\\]";
 		String pattern2 = "\\[([0-9]+):([0-9]+)\\s(.+)\\]";
@@ -93,7 +93,7 @@ public class Parser {
 			meridiem = matcher.group(1);
 			hour = matcher.group(2);
 			min = matcher.group(3);
-			if(meridiem.equals("¿ÀÀü")) {
+			if(meridiem.equals("ì˜¤ì „")) {
 				if(hour.equals("12")) return formatFor2Digit(0)+":"+formatFor2Digit(Integer.parseInt(min));
 				return formatFor2Digit(Integer.parseInt(hour))+":"+formatFor2Digit(Integer.parseInt(min));
 			}
@@ -109,13 +109,13 @@ public class Parser {
 			meridiem = matcher.group(3);
 			hour = matcher.group(1);
 			min = matcher.group(2);
-			if(meridiem.equals("¿ÀÀü")) {
+			if(meridiem.equals("AM")) {
 				if(hour.equals("12")) return formatFor2Digit(0)+":"+formatFor2Digit(Integer.parseInt(min));
 				return formatFor2Digit(Integer.parseInt(hour))+":"+formatFor2Digit(Integer.parseInt(min)); 
 			}
 			if(hour.equals("12")) return formatFor2Digit(Integer.parseInt(hour))+":"+formatFor2Digit(Integer.parseInt(min));
 			return formatFor2Digit(Integer.parseInt(hour)+12)+":"+formatFor2Digit(Integer.parseInt(min));
 		}
-		return "Failed to getDateTime.";
-	}*/
+		return formatFor2Digit(Integer.parseInt(hour))+":"+formatFor2Digit(Integer.parseInt(min));
+	}
 }
