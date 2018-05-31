@@ -1,38 +1,38 @@
-package edu.hanodng.csee.java.hw3;
+package edu.handong.csee.java.hw3;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 //import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeMap;
-
+/**
+ * 
+ * @author s0rrow
+ *
+ */
 public class MainHW3 {
+	
 	ArrayList<String> directories = new ArrayList<String>();
 	FileManager filemanager = new FileManager();
 	MessageManager messagemanager = new MessageManager();
+	
 	public static void main(String[] args) {
 		MainHW3 actor = new MainHW3();
-		actor.acto();
+		actor.acto(args);
 	}
 	
-	private void acto() {
+	private void acto(String[] args) {
 		directories = setDir();
 		for(int i = 0; i< directories.size(); i++) {
 			filemanager.ScanFile(directories.get(i));
 		}
 		messagemanager = filemanager.getMessageManager();
 		HashMap<String, Integer> inputdata = messagemanager.returnMap();
-		//HashMap<String, Integer> outputdata = new HashMap<String, Integer>();
 		TreeMap<Integer, String> sorteddata = new TreeMap<Integer, String>();
 		for(String key:inputdata.keySet()) {
 			Integer value = inputdata.get(key);
 			sorteddata.put(value, key);
-		}/*
-		Iterator<Integer> valueIterator = sorteddata.keySet().iterator();
-		while(valueIterator.hasNext()) {
-			Integer value = valueIterator.next();
-			outputdata.put(sorteddata.get(value), value);
-		}*/
+		}
 		filemanager.TreeMapWriteFile(sorteddata, "chatcount.csv");
 	}
 	
@@ -44,6 +44,4 @@ public class MainHW3 {
 		keyboard.close();
 		return names;
 	}
-	
-	
 }

@@ -4,3 +4,11 @@
  * This is a general purpose Gradle build.
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
+apply plugin: 'application'
+
+mainClassName = "edu.handong.csee.java.hw3.MainHW3.java"
+dependencies{
+	// https://mvnrepository.com/artifact/commons-cli/commons-cli
+	compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+	
+}

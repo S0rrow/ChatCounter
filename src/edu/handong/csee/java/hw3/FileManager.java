@@ -1,4 +1,4 @@
-package edu.hanodng.csee.java.hw3;
+package edu.handong.csee.java.hw3;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,7 +10,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
-
+/**
+ * 
+ * @author s0rrow
+ *
+ */
 public class FileManager {
 	MessageManager messagemanager = new MessageManager();
 	

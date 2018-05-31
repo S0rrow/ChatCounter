@@ -1,10 +1,14 @@
-package edu.hanodng.csee.java.hw3;
+package edu.handong.csee.java.hw3;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * 
+ * @author s0rrow
+ *
+ */
 public class MessageManager {
 	String oneline = "";
 	int line = 0;
