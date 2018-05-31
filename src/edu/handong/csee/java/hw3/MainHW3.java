@@ -2,9 +2,9 @@ package edu.handong.csee.java.hw3;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-//import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeMap;
+
 /**
  * 
  * @author s0rrow
@@ -34,6 +34,7 @@ public class MainHW3 {
 			sorteddata.put(value, key);
 		}
 		filemanager.TreeMapWriteFile(sorteddata, "chatcount.csv");
+		
 	}
 	
 	private ArrayList<String> setDir() {
