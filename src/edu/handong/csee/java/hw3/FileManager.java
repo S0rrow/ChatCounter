@@ -22,7 +22,7 @@ public class FileManager {
 		File file = new File(fileName);
 		try {
 			BufferedReader BR = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-			
+
 			String cache = "";
 			int line = 0;
 			while((cache = BR.readLine())!= null) {
