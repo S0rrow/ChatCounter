@@ -23,9 +23,9 @@ public class MainHW3 {
 	FileManager filemanager = new FileManager();
 	MessageManager messagemanager = new MessageManager();
 	
-	String path;
-	boolean verbose;
-	boolean help;
+	String inputPath;
+	int numThreads;
+	String outputPath;
 	
 	public static void main(String[] args) {
 		MainHW3 actor = new MainHW3();
@@ -38,19 +38,12 @@ public class MainHW3 {
 		Options options = createOptions();
 		
 		if(parseOptions(options, args)){
-			if (help){
-				printHelp(options);
-				return;
-			}
 			
-			System.out.println("You provided \"" + path + "\" as the value of the option p");
+			System.out.println("You provided \"" + inputPath + "\" as the value of the option i");
 			
-			if(verbose) {
-				System.out.println("Your program is terminated. (This message is shown because you turned on -v option!");
-			}
 		}
 		
-		directories.add(path);
+		directories.add(inputPath);
 		
 		for(int i = 0; i< directories.size(); i++) {
 			filemanager.ScanFile(directories.get(i));
@@ -79,9 +72,9 @@ public class MainHW3 {
 		CommandLineParser parser = new DefaultParser();
 		try {
 			CommandLine cmd = parser.parse(options, args);
-			path = cmd.getOptionValue("p");
-			verbose = cmd.hasOption("v");
-			help = cmd.hasOption("h");
+			inputPath = cmd.getOptionValue("i");
+			numThreads = Integer.parseInt(cmd.getOptionValue("c"));
+			outputPath = cmd.getOptionValue("o");
 			
 		} catch (Exception e) {
 			printHelp(options);
@@ -93,21 +86,26 @@ public class MainHW3 {
 	private Options createOptions() {
 		Options options = new Options();
 		
-		options.addOption(Option.builder("p").longOpt("path")
-				.desc("Set a path of a directory or a file to display")
+		options.addOption(Option.builder("i").longOpt("path")
+				.desc("Set a path of a directory or a file to parse")
 				.hasArg()
-				.argName("Path name to display")
+				.argName("Path name to get input files to parse")
 				.required()
 				.build());
 		
-		options.addOption(Option.builder("v").longOpt("verbose")
-				.desc("Display detailed messages!")
-				.argName("verbose option")
+		options.addOption(Option.builder("c").longOpt("numThreads")
+				.desc("Set the number of threads")
+				.hasArg()
+				.argName("Thread number to display")
+				.required()
 				.build());
 		
-		options.addOption(Option.builder("h").longOpt("help")
-		        .desc("Help")
-		        .build());
+		options.addOption(Option.builder("o").longOpt("output")
+				.desc("Set the directory to get the output file placed")
+				.hasArg()
+				.argName("Path name to get output file placed")
+				.required()
+				.build());
 
 		return options;
 	}
