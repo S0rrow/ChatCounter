@@ -1,5 +1,9 @@
 package edu.handong.csee.java.hw3;
-
+/**
+ * 
+ * @author s0rrow
+ *
+ */
 public class ThreadRunner implements Runnable{
 	int identifier = -1;
 	private boolean active = true;

@@ -2,7 +2,11 @@ package edu.handong.csee.java.hw3;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * 
+ * @author s0rrow
+ *
+ */
 public class ThreadPool{
 	
 	int numThreads;
