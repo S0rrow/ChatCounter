@@ -21,7 +21,7 @@ public class MainHW3 {
 	
 	ArrayList<String> directories = new ArrayList<String>();
 	FileManager filemanager = new FileManager();
-	ArrayList<MessageManager> messages = new ArrayList<MessageManager>();
+	MessageManager manager = new MessageManager();
 	MessageMapper mapper = new MessageMapper();
 	
 	String inputPath;
@@ -48,13 +48,9 @@ public class MainHW3 {
 		
 		for(String filename:directories) {
 			filemanager.ScanFile(filename);
-			messages.add(filemanager.getMessageManager());
 		}
 		
-		
-		for(MessageManager message: messages) {
-			mapper.getUser(message.returnMap());
-		}
+		ThreadPool tp = new ThreadPool(numThreads, filemanager.getUser());
 		inputdata = mapper.getMap();
 		
 		TreeMap<Integer, String> sorteddata = new TreeMap<Integer, String>();

@@ -83,7 +83,7 @@ public class FileManager {
 		}
 	}
 	
-	public MessageManager getMessageManager() {
-		return messagemanager;
+	public HashMap<String[], String> getUser() {
+		return messagemanager.returnMap();
 	}
 }

@@ -11,8 +11,12 @@ public class MessageMapper {
 	HashMap<String, Integer> chatRedundancy = new HashMap<String, Integer>();// nickname, redundancy
 	HashMap<String[], String> userdata= new HashMap<String[], String>();// nickname, date and time, message
 	
-	public void getUser(HashMap<String[], String> userdata) {
-		this.userdata = userdata;
+	public void setUser(HashMap<String[], String> userdata) {
+		this.userdata.putAll(userdata);
+	}
+	
+	public synchronized HashMap<String[], String> getUser() {
+		return userdata;
 	}
 	
 	public HashMap<String, Integer> getMap(){
