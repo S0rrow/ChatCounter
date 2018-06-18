@@ -49,14 +49,11 @@ public class MainHW3 {
 		for(String filename:directories) {
 			filemanager.ScanFile(filename);
 			try {
-				tp.addMap(filemanager.getUser());
+				inputdata = tp.addMap(filemanager.getUser());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
-		
-		
 		
 		
 		TreeMap<Integer, String> sorteddata = new TreeMap<Integer, String>();

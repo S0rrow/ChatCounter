@@ -21,9 +21,10 @@ public class ThreadPool{
 		}
 	}
 	
-	public synchronized void addMap(HashMap<String[], String> userdata) throws Exception{
+	public synchronized HashMap<String, Integer> addMap(HashMap<String[], String> userdata) throws Exception{
 		if(!active) throw new Exception("Thread pool inactive");
 		mapper.setUser(userdata);
+		return mapper.getMap();
 	}
 	
 	public synchronized void stop() throws InterruptedException {

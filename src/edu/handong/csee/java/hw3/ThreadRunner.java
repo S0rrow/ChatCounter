@@ -13,13 +13,15 @@ public class ThreadRunner implements Runnable{
 		while(active) {
 			try {
 				Thread.sleep(1000);
-				Runnable r = (Runnable) mapper.getUser();
+				Runnable r = mapper;
 				r.run();
 			} catch (InterruptedException e) {
 				stop();
 			}
 		}
 	}
+	
+	
 	
 	public void stop() {
 		active = false;
