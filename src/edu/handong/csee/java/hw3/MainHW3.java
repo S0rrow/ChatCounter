@@ -21,7 +21,7 @@ public class MainHW3 {
 	
 	ArrayList<String> directories = new ArrayList<String>();
 	FileManager filemanager = new FileManager();
-	MessageManager messagemanager = new MessageManager();
+	ArrayList<MessageManager> messages= new ArrayList<MessageManager>();
 	
 	String inputPath;
 	int numThreads;
@@ -45,16 +45,26 @@ public class MainHW3 {
 		
 		directories.add(inputPath);
 		
-		for(int i = 0; i< directories.size(); i++) {
-			filemanager.ScanFile(directories.get(i));
+		for(String filename: directories) {
+			filemanager.ScanFile(filename);
 		}
-		messagemanager = filemanager.getMessageManager();
-		HashMap<String, Integer> inputdata = messagemanager.returnMap();
+		
+		
+		messages.add(filemanager.getMessageManager());
+		
+		HashMap<String, Integer> inputdata = new HashMap<String, Integer>();
+		
+		for(MessageManager messagedata: messages) {
+			inputdata.putAll(messagedata.returnMap());
+		}
+		
 		TreeMap<Integer, String> sorteddata = new TreeMap<Integer, String>();
+		
 		for(String key:inputdata.keySet()) {
 			Integer value = inputdata.get(key);
 			sorteddata.put(value, key);
 		}
+		
 		filemanager.TreeMapWriteFile(sorteddata, "chatcount.csv");
 		
 	}
