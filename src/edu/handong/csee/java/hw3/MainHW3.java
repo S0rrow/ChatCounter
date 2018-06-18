@@ -44,6 +44,7 @@ public class MainHW3 {
 		
 		directories = setDir(inputPath);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		ThreadPool tp = new ThreadPool(numThreads);
 		HashMap<String, Integer> inputdata = new HashMap<String, Integer>();
 		
@@ -54,6 +55,11 @@ public class MainHW3 {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+=======
+		
+		for(String filename:directories) {
+			filemanager.ScanFile(filename);
+>>>>>>> a18fc21... minor fix on main class
 =======
 		
 		for(String filename:directories) {
