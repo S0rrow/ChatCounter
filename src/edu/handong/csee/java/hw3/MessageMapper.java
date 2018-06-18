@@ -6,7 +6,7 @@ import java.util.HashMap;
  * @author s0rrow
  *
  */
-public class MessageMapper {
+public class MessageMapper implements Runnable{
 	
 	HashMap<String, Integer> chatRedundancy = new HashMap<String, Integer>();// nickname, redundancy
 	HashMap<String[], String> userdata= new HashMap<String[], String>();// nickname, date and time, message
@@ -25,5 +25,11 @@ public class MessageMapper {
 			chatRedundancy.merge(nickname,1,Integer::sum);
 		}
 		return chatRedundancy;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		getMap();
 	}
 }

@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 public class MessageManager {
 	String oneline = "";
 	int line = 0;
-	MessageMapper mapper = new MessageMapper();
 	ArrayList<String> lines = new ArrayList<String>();//file's message data
 	ArrayList<String> nicknames = new ArrayList<String>();
 	ArrayList<String> messages = new ArrayList<String>();
@@ -124,7 +123,6 @@ public class MessageManager {
 			}
 			
 			currentdates.add(curDate);
-			mapper.getMap();
 		}
 	}
 	
@@ -212,7 +210,7 @@ public class MessageManager {
 	}
 
 	
-	public HashMap<String[], String> returnMap(){
+	public HashMap<String[], String> getUser(){
 		return userdata;
 	}
 	

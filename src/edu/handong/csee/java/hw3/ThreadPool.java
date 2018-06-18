@@ -10,11 +10,11 @@ public class ThreadPool{
 	MessageMapper mapper;
 	private boolean active = true;
 	
-	public ThreadPool(int numThreads, HashMap<String[], String> hashMap) {// initiate thread pool.
+	public ThreadPool(int numThreads) {// initiate thread pool.
 		this.numThreads = numThreads;
 		mapper = new MessageMapper();
 		for(int i = 0; i < numThreads; i++) {
-			threads.add(new ThreadRunner(i, hashMap));
+			threads.add(new ThreadRunner(i));
 		}
 		for(ThreadRunner thread: threads) {
 			new Thread(thread).start();

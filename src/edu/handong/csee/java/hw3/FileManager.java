@@ -84,6 +84,6 @@ public class FileManager {
 	}
 	
 	public HashMap<String[], String> getUser() {
-		return messagemanager.returnMap();
+		return messagemanager.getUser();
 	}
 }

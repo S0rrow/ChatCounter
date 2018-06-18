@@ -43,15 +43,21 @@ public class MainHW3 {
 		}
 		
 		directories = setDir(inputPath);
-		
+		ThreadPool tp = new ThreadPool(numThreads);
 		HashMap<String, Integer> inputdata = new HashMap<String, Integer>();
 		
 		for(String filename:directories) {
 			filemanager.ScanFile(filename);
+			try {
+				tp.addMap(filemanager.getUser());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
-		ThreadPool tp = new ThreadPool(numThreads, filemanager.getUser());
-		inputdata = mapper.getMap();
+		
+		
+		
 		
 		TreeMap<Integer, String> sorteddata = new TreeMap<Integer, String>();
 		
