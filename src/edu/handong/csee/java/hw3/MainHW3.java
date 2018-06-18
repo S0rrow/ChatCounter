@@ -51,6 +51,7 @@ public class MainHW3 {
 			messages.add(filemanager.getMessageManager());
 		}
 		
+		
 		for(MessageManager message: messages) {
 			mapper.getUser(message.returnMap());
 		}
@@ -124,4 +125,5 @@ public class MainHW3 {
 		String footer ="\nissues may be reported to https://github.com/S0rrow/HW3";
 		formatter.printHelp("HW3", header, options, footer, true);
 	}
+	
 }
