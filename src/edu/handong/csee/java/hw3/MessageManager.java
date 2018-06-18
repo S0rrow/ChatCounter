@@ -20,6 +20,8 @@ public class MessageManager {
 	ArrayList<String> currentdates = new ArrayList<String>();
 	ArrayList<String> datetimes = new ArrayList<String>();
 	
+	HashMap<String[], String> userdata = new HashMap<String[], String>();
+	
 	public void getLine(String cache) {
 		lines.add(cache);
 	}
@@ -89,7 +91,7 @@ public class MessageManager {
 					times.add(time = matcher.group(2));
 					messages.add(message = matcher.group(3));
 					datetimes.add(datetime = getDateTime(curDate, time));
-					mapper.mapUser(nickname, datetime, message);
+					mapUser(nickname, datetime, message);
 				}
 			}//end of loop for sizes.
 			
@@ -117,7 +119,7 @@ public class MessageManager {
 					messages.add(message = matcher.group(7));
 					times.add(time = String.valueOf(curHour*60+curMin));
 					datetimes.add(datetime = getDateTime(curDate,time));
-					mapper.mapUser(nickname, datetime, message);
+					mapUser(nickname, datetime, message);
 				}
 			}
 			
@@ -210,8 +212,14 @@ public class MessageManager {
 	}
 
 	
-	public HashMap<String, Integer> returnMap(){
-		return mapper.getMap();
+	public HashMap<String[], String> returnMap(){
+		return userdata;
 	}
 	
+	private void mapUser(String nickname, String datetime, String message) {
+		String[] identifier = new String[3];
+		identifier[0] = nickname;
+		identifier[1] = datetime;
+		userdata.put(identifier, message);
+	}
 }

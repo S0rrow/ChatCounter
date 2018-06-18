@@ -41,6 +41,7 @@ public class FileManager {
 		}
 	}
 	
+	
 	public void HashMapWriteFile(HashMap<String, Integer> data, String output) {
 		try {
 			FileWriter writer = new FileWriter(output);
