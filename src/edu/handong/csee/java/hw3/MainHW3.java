@@ -1,8 +1,8 @@
 package edu.handong.csee.java.hw3;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.TreeMap;
 
 import org.apache.commons.cli.CommandLine;
@@ -33,8 +33,6 @@ public class MainHW3 {
 	}
 	
 	private void acto(String[] args) {
-		directories = setDir();
-		
 		Options options = createOptions();
 		
 		if(parseOptions(options, args)){
@@ -43,10 +41,10 @@ public class MainHW3 {
 			
 		}
 		
-		directories.add(inputPath);
+		directories = setDir(inputPath);
 		
-		for(int i = 0; i< directories.size(); i++) {
-			filemanager.ScanFile(directories.get(i));
+		for(String filename:directories) {
+			filemanager.ScanFile(filename);
 		}
 		messagemanager = filemanager.getMessageManager();
 		HashMap<String, Integer> inputdata = messagemanager.returnMap();
@@ -59,12 +57,13 @@ public class MainHW3 {
 		
 	}
 	
-	private ArrayList<String> setDir() {
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("Type in the directory of file: ");
+	private ArrayList<String> setDir(String inputPath) {
+		File directory = new File(inputPath);
+		File[] directories = directory.listFiles();
 		ArrayList<String> names = new ArrayList<String>();
-		names.add(keyboard.nextLine());
-		keyboard.close();
+		for(File tempFile:directories) {
+			names.add(tempFile.getName());
+		}
 		return names;
 	}
 	
@@ -87,7 +86,7 @@ public class MainHW3 {
 		Options options = new Options();
 		
 		options.addOption(Option.builder("i").longOpt("path")
-				.desc("Set a path of a directory or a file to parse")
+				.desc("Set a path of a directory or file to parse")
 				.hasArg()
 				.argName("Path name to get input files to parse")
 				.required()
