@@ -1,8 +1,8 @@
 package edu.handong.csee.java.hw3;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 import org.apache.commons.cli.CommandLine;
@@ -23,9 +23,9 @@ public class MainHW3 {
 	FileManager filemanager = new FileManager();
 	MessageManager messagemanager = new MessageManager();
 	
-	String inputPath;
-	int numThreads;
-	String outputPath;
+	String path;
+	boolean verbose;
+	boolean help;
 	
 	public static void main(String[] args) {
 		MainHW3 actor = new MainHW3();
@@ -33,18 +33,27 @@ public class MainHW3 {
 	}
 	
 	private void acto(String[] args) {
+		directories = setDir();
+		
 		Options options = createOptions();
 		
 		if(parseOptions(options, args)){
+			if (help){
+				printHelp(options);
+				return;
+			}
 			
-			System.out.println("You provided \"" + inputPath + "\" as the value of the option i");
+			System.out.println("You provided \"" + path + "\" as the value of the option p");
 			
+			if(verbose) {
+				System.out.println("Your program is terminated. (This message is shown because you turned on -v option!");
+			}
 		}
 		
-		directories = setDir(inputPath);
+		directories.add(path);
 		
-		for(String filename:directories) {
-			filemanager.ScanFile(filename);
+		for(int i = 0; i< directories.size(); i++) {
+			filemanager.ScanFile(directories.get(i));
 		}
 		messagemanager = filemanager.getMessageManager();
 		HashMap<String, Integer> inputdata = messagemanager.returnMap();
@@ -57,13 +66,12 @@ public class MainHW3 {
 		
 	}
 	
-	private ArrayList<String> setDir(String inputPath) {
-		File directory = new File(inputPath);
-		File[] directories = directory.listFiles();
+	private ArrayList<String> setDir() {
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("Type in the directory of file: ");
 		ArrayList<String> names = new ArrayList<String>();
-		for(File tempFile:directories) {
-			names.add(tempFile.getName());
-		}
+		names.add(keyboard.nextLine());
+		keyboard.close();
 		return names;
 	}
 	
@@ -71,9 +79,9 @@ public class MainHW3 {
 		CommandLineParser parser = new DefaultParser();
 		try {
 			CommandLine cmd = parser.parse(options, args);
-			inputPath = cmd.getOptionValue("i");
-			numThreads = Integer.parseInt(cmd.getOptionValue("c"));
-			outputPath = cmd.getOptionValue("o");
+			path = cmd.getOptionValue("p");
+			verbose = cmd.hasOption("v");
+			help = cmd.hasOption("h");
 			
 		} catch (Exception e) {
 			printHelp(options);
@@ -85,26 +93,21 @@ public class MainHW3 {
 	private Options createOptions() {
 		Options options = new Options();
 		
-		options.addOption(Option.builder("i").longOpt("path")
-				.desc("Set a path of a directory or file to parse")
+		options.addOption(Option.builder("p").longOpt("path")
+				.desc("Set a path of a directory or a file to display")
 				.hasArg()
-				.argName("Path name to get input files to parse")
+				.argName("Path name to display")
 				.required()
 				.build());
 		
-		options.addOption(Option.builder("c").longOpt("numThreads")
-				.desc("Set the number of threads")
-				.hasArg()
-				.argName("Thread number to display")
-				.required()
+		options.addOption(Option.builder("v").longOpt("verbose")
+				.desc("Display detailed messages!")
+				.argName("verbose option")
 				.build());
 		
-		options.addOption(Option.builder("o").longOpt("output")
-				.desc("Set the directory to get the output file placed")
-				.hasArg()
-				.argName("Path name to get output file placed")
-				.required()
-				.build());
+		options.addOption(Option.builder("h").longOpt("help")
+		        .desc("Help")
+		        .build());
 
 		return options;
 	}
