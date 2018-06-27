@@ -12,14 +12,13 @@ import java.util.regex.Pattern;
 public class MessageManager {
 	String oneline = "";
 	int line = 0;
+	MessageMapper mapper = new MessageMapper();
 	ArrayList<String> lines = new ArrayList<String>();//file's message data
 	ArrayList<String> nicknames = new ArrayList<String>();
 	ArrayList<String> messages = new ArrayList<String>();
 	ArrayList<String> times = new ArrayList<String>();
 	ArrayList<String> currentdates = new ArrayList<String>();
 	ArrayList<String> datetimes = new ArrayList<String>();
-	
-	HashMap<String[], String> userdata = new HashMap<String[], String>();
 	
 	public void getLine(String cache) {
 		lines.add(cache);
@@ -45,8 +44,6 @@ public class MessageManager {
 		String pattern2 = ".+,\\s(.+)\\s([0-9]),\\s([0-9]+)\\s.+";
 		String pattern3 = "(\\[.+\\])\\s(\\[.+\\])\\s.+";
 		String subpattern3 = "\\[(.+)\\]\\s(\\[.+\\])\\s(.+)";
-		String pattern4 = "([0-9]+)\\-([0-9]+)\\-([0-9]+)\\s([0-9]+)\\:([0-9]+)\\:..\\,\\\"(.+)\\\"\\,\\\"(.+)\\\"";
-		String pattern5 = "([0-9]+)\\-([0-9]+)\\-([0-9]+)\\s([0-9]+)\\:([0-9]+)\\:..\\,\\\"(.+)\\\"\\,\\\"(.+)";
 		
 		for(int i = 0; i < lines.size(); i++) {
 			curYear = -1;
@@ -90,39 +87,12 @@ public class MessageManager {
 					times.add(time = matcher.group(2));
 					messages.add(message = matcher.group(3));
 					datetimes.add(datetime = getDateTime(curDate, time));
-					mapUser(nickname, datetime, message);
+					mapper.mapUser(nickname, datetime, message);
 				}
 			}//end of loop for sizes.
 			
-			//parsing part for when file is csv.
-			if(oneline.matches(pattern4) || oneline.matches(pattern5)) {
-				Pattern p = null;
-				
-				if(oneline.matches(pattern4)) {
-					p = Pattern.compile(pattern4);
-				} else if(oneline.matches(pattern5)) {
-					p = Pattern.compile(pattern5);
-				}
-				Matcher matcher = p.matcher(oneline);
-				if(matcher.find()) {
-					curYear = Integer.parseInt(matcher.group(1));
-					curMonth = Integer.parseInt(matcher.group(2));
-					curDay = Integer.parseInt(matcher.group(3));
-					
-					int curHour = Integer.parseInt(matcher.group(4));
-					int curMin = Integer.parseInt(matcher.group(5));
-					
-					curDate = getCurrentDate(curYear, curMonth, curDay);
-					
-					nicknames.add(nickname = matcher.group(6));
-					messages.add(message = matcher.group(7));
-					times.add(time = String.valueOf(curHour*60+curMin));
-					datetimes.add(datetime = getDateTime(curDate,time));
-					mapUser(nickname, datetime, message);
-				}
-			}
-			
 			currentdates.add(curDate);
+			mapper.getMap();
 		}
 	}
 	
@@ -210,14 +180,7 @@ public class MessageManager {
 	}
 
 	
-	public HashMap<String[], String> getUser(){
-		return userdata;
-	}
-	
-	private void mapUser(String nickname, String datetime, String message) {
-		String[] identifier = new String[3];
-		identifier[0] = nickname;
-		identifier[1] = datetime;
-		userdata.put(identifier, message);
+	public HashMap<String, Integer> returnMap(){
+		return mapper.getMap();
 	}
 }

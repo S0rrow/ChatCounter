@@ -21,8 +21,7 @@ public class MainHW3 {
 	
 	ArrayList<String> directories = new ArrayList<String>();
 	FileManager filemanager = new FileManager();
-	MessageManager manager = new MessageManager();
-	MessageMapper mapper = new MessageMapper();
+	MessageManager messagemanager = new MessageManager();
 	
 	String inputPath;
 	int numThreads;
@@ -43,39 +42,19 @@ public class MainHW3 {
 		}
 		
 		directories = setDir(inputPath);
-<<<<<<< HEAD
-<<<<<<< HEAD
-		ThreadPool tp = new ThreadPool(numThreads);
-		HashMap<String, Integer> inputdata = new HashMap<String, Integer>();
-		
-		for(String filename:directories) {
-			filemanager.ScanFile(inputPath+"\\"+filename);
-			try {
-				inputdata = tp.addMap(filemanager.getUser());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-=======
 		
 		for(String filename:directories) {
 			filemanager.ScanFile(filename);
->>>>>>> a18fc21... minor fix on main class
-=======
-		
-		for(String filename:directories) {
-			filemanager.ScanFile(filename);
->>>>>>> a18fc21... minor fix on main class
 		}
-		
-		
+		messagemanager = filemanager.getMessageManager();
+		HashMap<String, Integer> inputdata = messagemanager.returnMap();
 		TreeMap<Integer, String> sorteddata = new TreeMap<Integer, String>();
-		
 		for(String key:inputdata.keySet()) {
 			Integer value = inputdata.get(key);
 			sorteddata.put(value, key);
 		}
-		
 		filemanager.TreeMapWriteFile(sorteddata, "chatcount.csv");
+		
 	}
 	
 	private ArrayList<String> setDir(String inputPath) {
@@ -136,5 +115,4 @@ public class MainHW3 {
 		String footer ="\nissues may be reported to https://github.com/S0rrow/HW3";
 		formatter.printHelp("HW3", header, options, footer, true);
 	}
-	
 }

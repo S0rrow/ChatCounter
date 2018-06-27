@@ -41,7 +41,6 @@ public class FileManager {
 		}
 	}
 	
-	
 	public void HashMapWriteFile(HashMap<String, Integer> data, String output) {
 		try {
 			FileWriter writer = new FileWriter(output);
@@ -83,7 +82,7 @@ public class FileManager {
 		}
 	}
 	
-	public HashMap<String[], String> getUser() {
-		return messagemanager.getUser();
+	public MessageManager getMessageManager() {
+		return messagemanager;
 	}
 }

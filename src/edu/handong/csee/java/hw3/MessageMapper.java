@@ -6,18 +6,17 @@ import java.util.HashMap;
  * @author s0rrow
  *
  */
-public class MessageMapper implements Runnable{
-	
+public class MessageMapper {
 	HashMap<String, Integer> chatRedundancy = new HashMap<String, Integer>();// nickname, redundancy
-	HashMap<String[], String> userdata= new HashMap<String[], String>();// nickname, date and time, message
-	
-	public void setUser(HashMap<String[], String> userdata) {
-		this.userdata.putAll(userdata);
+	HashMap<String[], String> userdata = new HashMap<String[], String>();// nickname, date and time, message
+	String[] identifier = new String[3];
+	int initiator = 0;
+	public void mapUser(String nickname, String datetime, String message) {
+		identifier[0] = nickname;
+		identifier[1] = datetime;
+		userdata.put(identifier, message);
 	}
 	
-	public synchronized HashMap<String[], String> getUser() {
-		return userdata;
-	}
 	
 	public HashMap<String, Integer> getMap(){
 		for(String[] whoandwhen:userdata.keySet()) {
@@ -25,11 +24,5 @@ public class MessageMapper implements Runnable{
 			chatRedundancy.merge(nickname,1,Integer::sum);
 		}
 		return chatRedundancy;
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		getMap();
 	}
 }
