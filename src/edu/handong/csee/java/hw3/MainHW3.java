@@ -47,7 +47,7 @@ public class MainHW3 {
 		HashMap<String, Integer> inputdata = new HashMap<String, Integer>();
 		
 		for(String filename:directories) {
-			filemanager.ScanFile(filename);
+			filemanager.ScanFile(inputPath+"\\"+filename);
 			try {
 				inputdata = tp.addMap(filemanager.getUser());
 			} catch (Exception e) {
